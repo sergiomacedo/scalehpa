@@ -96,8 +96,26 @@ main() {
         ;;
     --)
         shift
-        OBJECTNAME=$1
-        KIND="deploy"
+        for opt in "$@"; do
+          case "$opt" in
+            "deploy")
+              shift
+              KIND="deploy"
+              ;;
+            "statefulset")
+              shift
+              KIND="statefulset"
+              ;;
+            "sts")
+              shift
+              KIND="sts"
+              ;;
+            *)
+              shift
+              OBJECTNAME=$opt
+              ;;
+          esac
+        done
         break
         ;;
      *)
