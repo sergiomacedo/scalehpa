@@ -45,11 +45,11 @@ list_scaledobjects() {
 scale() {
   # Try to scale with keda. If it fails, scale with default method.
   # Not checking *why* it fails...
-  $KUBECTL patch scaledobject $OBJECTNAME -n $NAMESPACE --type merge  -p '{"spec":{"minReplicaCount":'$REPLICAS'}}' 2> /dev/null || scale_default
+  $KUBECTL patch scaledobject $OBJECTNAME ${NAMESPACE} --type merge  -p '{"spec":{"minReplicaCount":'$REPLICAS'}}' 2> /dev/null || scale_default
 }
 
 scale_default() {
-  $KUBECTL scale $KIND $OBJECTNAME -n $NAMESPACE --replicas=$REPLICAS 
+  $KUBECTL scale $KIND $OBJECTNAME ${NAMESPACE} --replicas=$REPLICAS
 }
 
 main() {
@@ -107,6 +107,9 @@ main() {
     shift
   done
 
+  if [[ -n $NAMESPACE ]]; then
+     NAMESPACE="-n"$NAMESPACE
+  fi
   scale
 
 }
