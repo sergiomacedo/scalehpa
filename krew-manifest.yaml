@@ -11,7 +11,7 @@ spec:
     patching the scaledobject to the correct number of minReplicaCount.
   caveats: |
     Only works with statefulset and deployment. Does not check reason for errors when
-    patching the scaledobject.
+    patching the scaledobject. Requires previous installation of 'getopt' on MacOS
   platforms:
   - selector:
       matchExpressions:
