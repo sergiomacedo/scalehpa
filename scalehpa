@@ -56,10 +56,6 @@ exit_err() {
    exit 1
 }
 
-list_scaledobjects() {
-  $KUBECTL get scaledobjects 
-}
-
 scale() {
   # Try to scale with keda. If it fails, scale with default method.
   # Not checking *why* it fails...
