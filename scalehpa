@@ -19,7 +19,6 @@
 set -eou pipefail
 IFS=$'\n\t'
 
-SCALEHPA="${XDG_CACHE_HOME:-$HOME/.kube}/scalehpa"
 OBJECTNAME=""
 KIND=""
 NAMESPACE=""
