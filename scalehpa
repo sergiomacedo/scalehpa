@@ -88,6 +88,10 @@ main() {
     fi
   fi
 
+  if [[ $# -lt 4 ]]; then
+    usage
+  fi
+
   options=$(getopt -o n:r:h --long replicas: -- "$@")
   eval set -- "$options"
   while true; do
