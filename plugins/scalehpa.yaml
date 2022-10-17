@@ -3,7 +3,7 @@ kind: Plugin
 metadata:
   name: scalehpa
 spec:
-  homepage: https://github.com/sergiomacedo/scalepha
+  homepage: https://github.com/sergiomacedo/scalehpa
   shortDescription: Wraps "kubectl scale" when keda is being used
   version: v0.0.1-alpha
   description: |
