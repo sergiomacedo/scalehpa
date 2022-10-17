@@ -1,0 +1,25 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: scalehpa
+spec:
+  homepage: https://github.com/sergiomacedo/scalepha
+  shortDescription: Wraps "kubectl scale" when keda is being used
+  version: v0.0.1
+  description: |
+    Allows use of "kubectl scale"-like command when keda is installed,
+    patching the scaledobject to the correct number of minReplicaCount.
+  caveats: |
+    Only works with statefulset and deployment. Does not check reason for errors when
+    patching the scaledobject. Requires previous installation of 'getopt' on MacOS
+  platforms:
+  - selector:
+      matchExpressions:
+      - key: os
+        operator: In
+        values:
+        - darwin
+        - linux
+    uri: https://github.com/sergiomacedo/scalehpa/releases/download/v0.0.1/scalehpa
+    sha256: dc6dda2da6bd7eb50b9fdeb177a27a3916c12fc8d31a37b60a26ed3748793bfe
+    bin: scalehpa
