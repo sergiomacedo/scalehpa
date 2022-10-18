@@ -58,8 +58,14 @@ exit_err() {
 scale() {
   # Try to scale with keda. If it fails, scale with default method.
   # Not checking *why* it fails...
-  $KUBECTL patch scaledobject $OBJECTNAME ${NAMESPACE} --type merge  -p '{"spec":{"minReplicaCount":'$REPLICAS'}}' 2> /dev/null && \
-  $KUBECTL patch deploy "$OBJECTNAME" ${NAMESPACE} --type merge  -p '{"spec":{"replicas":'$REPLICAS'}}' 2> /dev/null || scale_default
+
+  if [[ $REPLICAS -eq 0 ]]; then
+    $KUBECTL annotate scaledobject $OBJECTNAME ${NAMESPACE} autoscaling.keda.sh/paused-replicas=0 --overwrite 2> /dev/null
+  else
+    $KUBECTL annotate scaledobject $OBJECTNAME ${NAMESPACE} autoscaling.keda.sh/paused-replicas- 2> /dev/null
+  fi
+  $KUBECTL patch scaledobject $OBJECTNAME ${NAMESPACE} --type merge  -p '{"spec":{"minReplicaCount":'$REPLICAS'}}' 2> /dev/null || \
+  scale_default
 }
 
 scale_default() {
