@@ -16,7 +16,7 @@
 
 [[ -n $DEBUG ]] && set -x
 
-set -eou pipefail
+#set -eou pipefail
 IFS=$'\n\t'
 
 OBJECTNAME=""
@@ -60,16 +60,16 @@ scale() {
   # Not checking *why* it fails...
 
   if [[ $REPLICAS -eq 0 ]]; then
-    $KUBECTL annotate scaledobject $OBJECTNAME ${NAMESPACE} autoscaling.keda.sh/paused-replicas=0 --overwrite 2> /dev/null
+    $KUBECTL annotate scaledobject "$OBJECTNAME" ${NAMESPACE} autoscaling.keda.sh/paused-replicas=0 --overwrite 2> /dev/null
   else
-    $KUBECTL annotate scaledobject $OBJECTNAME ${NAMESPACE} autoscaling.keda.sh/paused-replicas- 2> /dev/null
+    $KUBECTL annotate scaledobject "$OBJECTNAME" ${NAMESPACE} autoscaling.keda.sh/paused-replicas- 2> /dev/null
   fi
-  $KUBECTL patch scaledobject $OBJECTNAME ${NAMESPACE} --type merge  -p '{"spec":{"minReplicaCount":'$REPLICAS'}}' 2> /dev/null || \
+  $KUBECTL patch scaledobject "$OBJECTNAME" ${NAMESPACE} --type merge  -p '{"spec":{"minReplicaCount":'$REPLICAS'}}' 2> /dev/null || \
   scale_default
 }
 
 scale_default() {
-  $KUBECTL scale $KIND $OBJECTNAME ${NAMESPACE} --replicas=$REPLICAS
+  $KUBECTL scale $KIND "$OBJECTNAME" ${NAMESPACE} --replicas=$REPLICAS
 }
 
 main() {
