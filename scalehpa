@@ -16,7 +16,7 @@
 
 [[ -n $DEBUG ]] && set -x
 
-set -eou pipefail
+#set -eou pipefail
 IFS=$'\n\t'
 
 OBJECTNAME=""
