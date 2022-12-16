@@ -35,6 +35,26 @@ scalehpa -h,--help
 ```
 -----
 ## Installation
+### Installing as a krew plugin
+
+```sh
+$ kubectl krew index add scalehpa https://github.com/sergiomacedo/scalehpa.git
+$ kubectl krew install scalehpa/scalehpa
+$ kubectl scalehpa 
+Set a new size for a deployment or a statefulset when keda is installed.
+
+Examples:
+# scale a deployment on the default or current namespace
+kubectl scalehpa deploy foo --replicas=3
+
+# scale a statefulset on a specific namespace
+kubectl scalehpa sts -r 3 foo -n bar
+kubectl scalehpa statefulset foo -n bar -r 3
+
+# show this message
+kubectl scalehpa -h,--help
+```
+
 
 ### Manual Installation (macOS and Linux)
 
