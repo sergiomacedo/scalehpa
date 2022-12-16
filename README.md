@@ -13,12 +13,25 @@ It's written in a way to execute the scale even if the deployment doesn't have s
 ### Examples
 
 ```sh
-# scale a deployment on the default or current namespace
-$ scalehpa deploy foo --replicas=3
+Set a new size for a deployment or a statefulset when keda is installed.
+
+Examples:
+# Set a minimum number of replicas for the deployment on the default or current namespace
+# This will set the minReplicas to 3 and keep HPA active
+scalehpa deploy foo --replicas=3
+
+# scale a deployment on the default or current namespace and DISABLE HPA
+# This will create a fixed set of 3 replicas, disabling autoscale
+# To reenable HPA, use the --replicas option
+scalehpa deploy foo --freeze=3
 
 # scale a statefulset on a specific namespace
-$ scalehpa sts -r 3 foo -n bar
-$ scalehpa statefulset foo -n bar -r 3
+scalehpa sts -r 3 foo -n bar
+scalehpa statefulset foo -n bar -r 3
+
+# show this message
+scalehpa -h,--help
+
 ```
 -----
 ## Installation
