@@ -5,7 +5,7 @@ metadata:
 spec:
   homepage: https://github.com/sergiomacedo/scalehpa
   shortDescription: Wraps "kubectl scale" when keda is being used
-  version: v0.0.1-alpha4
+  version: v0.0.1-alpha5
   description: |
     Allows use of "kubectl scale"-like command when keda is installed,
     patching the scaledobject to the correct number of minReplicaCount.
@@ -20,8 +20,8 @@ spec:
         values:
         - darwin
         - linux
-    uri: https://github.com/sergiomacedo/scalehpa/archive/refs/tags/v0.0.1-alpha4.tar.gz
-    sha256: 9fe3838085ff14f9ebe9e15d2da813dc17101ceaf76d141edc84fd4a6f3e9aff
+    uri: https://github.com/sergiomacedo/scalehpa/archive/refs/tags/v0.0.1-alpha5.tar.gz
+    sha256: dcc3d27dc30f29c880f18e9c5cab4ccf6d40e3aad48abab1e562c0771899b655
     bin: scalehpa
     files:
     - from: scalehpa-*/scalehpa
