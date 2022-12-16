@@ -68,6 +68,14 @@ scale() {
   scale_default
 }
 
+freeze() {
+
+  if [[ $REPLICAS ]]; then
+    $KUBECTL annotate scaledobject "$OBJECTNAME" ${NAMESPACE} autoscaling.keda.sh/paused-replicas=$REPLICAS --overwrite 2> /dev/null
+  fi
+  scale_default
+}
+
 scale_default() {
   $KUBECTL scale $KIND "$OBJECTNAME" ${NAMESPACE} --replicas=$REPLICAS
 }
@@ -93,8 +101,10 @@ main() {
   if [[ $# -lt 4 ]]; then
     usage
   fi
+  #if [[ $# -eq 4 ]]; then
+  #fi
 
-  options=$(getopt -o n:r:h --long replicas: -- "$@")
+  options=$(getopt -o n:r:h --long replicas: --long freeze: -- "$@")
   eval set -- "$options"
   while true; do
     case "$1" in
@@ -112,6 +122,11 @@ main() {
         ;;
     --replicas)
         shift; # The arg is next in position args
+        REPLICAS=$1
+        ;;
+    --freeze)
+        shift; # The arg is next in position args
+        FREEZE=true
         REPLICAS=$1
         ;;
     --)
@@ -148,7 +163,11 @@ main() {
   if [[ -n $NAMESPACE ]]; then
      NAMESPACE="-n"$NAMESPACE
   fi
-  scale
+  if [ $FREEZE ]; then
+    freeze
+  else
+    scale
+  fi
 
 }
 main "$@"
