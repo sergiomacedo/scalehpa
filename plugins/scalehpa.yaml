@@ -21,7 +21,7 @@ spec:
         - darwin
         - linux
     uri: https://github.com/sergiomacedo/scalehpa/archive/refs/tags/v0.0.1-alpha5.tar.gz
-    sha256: dcc3d27dc30f29c880f18e9c5cab4ccf6d40e3aad48abab1e562c0771899b655
+    sha256: 8cc8eeb5adef60f206fbea51e3786ff74cf6ff3e70e3b131f69b5d5434f26347
     bin: scalehpa
     files:
     - from: scalehpa-*/scalehpa
