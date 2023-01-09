@@ -23,6 +23,7 @@ OBJECTNAME=""
 KIND=""
 NAMESPACE=""
 REPLICAS=""
+MAXREPLICAS=""
 
 
 usage() {
@@ -39,6 +40,14 @@ Examples:
 # Set a minimum number of replicas for the deployment on the default or current namespace
 # This will set the minReplicas to 3 and keep HPA active
 $SELF deploy foo --replicas=3
+$SELF deploy foo -r 3
+
+# This will set the maxReplicas to 10 and keep HPA active
+$SELF deploy foo --maxreplicas=10
+$SELF deploy foo -m 10
+
+# This will set the minReplicas to 10, maxReplicas to 20 and keep HPA active
+$SELF deploy foo -r 10 -m 20
 
 # scale a deployment on the default or current namespace and DISABLE HPA
 # This will create a fixed set of 3 replicas, disabling autoscale
@@ -59,6 +68,10 @@ exit 0
 exit_err() {
    echo >&2 "${1}"
    exit 1
+}
+
+setmax() {
+  $KUBECTL patch scaledobject "$OBJECTNAME" ${NAMESPACE} --type merge  -p '{"spec":{"maxReplicaCount":'$MAXREPLICAS'}}' 2> /dev/null
 }
 
 scale() {
@@ -110,7 +123,7 @@ main() {
   #if [[ $# -eq 4 ]]; then
   #fi
 
-  options=$(getopt -o n:r:f:h --long replicas: --long freeze: -- "$@")
+  options=$(getopt -o n:r:f:m:h --long replicas: --long freeze: --long max: -- "$@")
   eval set -- "$options"
   while true; do
     case "$1" in
@@ -129,6 +142,14 @@ main() {
     --replicas)
         shift; # The arg is next in position args
         REPLICAS=$1
+        ;;
+    -m)
+        shift; # The arg is next in position args
+        MAXREPLICAS=$1
+        ;;
+    --maxreplicas)
+        shift; # The arg is next in position args
+        MAXREPLICAS=$1
         ;;
     -f)
         shift; # The arg is next in position args
@@ -173,6 +194,9 @@ main() {
 
   if [[ -n $NAMESPACE ]]; then
      NAMESPACE="-n"$NAMESPACE
+  fi
+  if [[ -n $MAXREPLICAS ]] ; then
+     setmax
   fi
   if [ $FREEZE ]; then
     freeze
