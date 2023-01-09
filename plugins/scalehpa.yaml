@@ -5,7 +5,7 @@ metadata:
 spec:
   homepage: https://github.com/sergiomacedo/scalehpa
   shortDescription: Wraps "kubectl scale" when keda is being used
-  version: v0.0.1-alpha6
+  version: v0.0.2
   description: |
     Allows use of "kubectl scale"-like command when keda is installed,
     patching the scaledobject to the correct number of minReplicaCount.
