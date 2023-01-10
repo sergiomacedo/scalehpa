@@ -19,6 +19,14 @@ Examples:
 # Set a minimum number of replicas for the deployment on the default or current namespace
 # This will set the minReplicas to 3 and keep HPA active
 scalehpa deploy foo --replicas=3
+scalehpa deploy foo -r 3
+
+# This will set the maxReplicas to 10 and keep HPA active
+scalehpa deploy foo --maxreplicas=10
+scalehpa deploy foo -m 10
+
+# This will set the minReplicas to 10, maxReplicas to 20 and keep HPA active
+scalehpa deploy foo -r 10 -m 20
 
 # scale a deployment on the default or current namespace and DISABLE HPA
 # This will create a fixed set of 3 replicas, disabling autoscale
@@ -31,7 +39,6 @@ scalehpa statefulset foo -n bar -r 3
 
 # show this message
 scalehpa -h,--help
-
 ```
 -----
 ## Installation
