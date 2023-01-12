@@ -51,8 +51,22 @@ $ kubectl scalehpa
 Set a new size for a deployment or a statefulset when keda is installed.
 
 Examples:
-# scale a deployment on the default or current namespace
+# Set a minimum number of replicas for the deployment on the default or current namespace
+# This will set the minReplicas to 3 and keep HPA active
 kubectl scalehpa deploy foo --replicas=3
+kubectl scalehpa deploy foo -r 3
+
+# This will set the maxReplicas to 10 and keep HPA active
+kubectl scalehpa deploy foo --maxreplicas=10
+kubectl scalehpa deploy foo -m 10
+
+# This will set the minReplicas to 10, maxReplicas to 20 and keep HPA active
+kubectl scalehpa deploy foo -r 10 -m 20
+
+# scale a deployment on the default or current namespace and DISABLE HPA
+# This will create a fixed set of 3 replicas, disabling autoscale
+# To reenable HPA, use the --replicas option
+kubectl scalehpa deploy foo --freeze=3
 
 # scale a statefulset on a specific namespace
 kubectl scalehpa sts -r 3 foo -n bar
