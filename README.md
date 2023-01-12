@@ -80,7 +80,3 @@ Example installation steps:
 sudo git clone https://github.com/sergiomacedo/scalehpa /opt/scalehpa
 sudo ln -s /opt/scalehpa/scalehpa /usr/local/bin/scalehpa
 ```
-
-
-
-- [manually (macOS & Linux)](#manual-installation-macos-and-linux)
