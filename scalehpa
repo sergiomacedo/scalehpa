@@ -198,10 +198,12 @@ main() {
   if [[ -n $MAXREPLICAS ]] ; then
      setmax
   fi
-  if [ $FREEZE ]; then
-    freeze
-  else
-    scale
+  if [[ -n $REPLICAS ]]; then
+    if [ $FREEZE ]; then
+      freeze
+    else
+      scale
+    fi
   fi
 
 }
